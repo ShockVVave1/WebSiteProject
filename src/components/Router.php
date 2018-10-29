@@ -40,17 +40,27 @@ class Router
 
         //Перебираем руты
         foreach ($this->routes as $uriPatterns => $path){
-            echo "<br>$uriPatterns->$path";
 
             //Если найденно совпадение записываем имя контроллера и метода
             if (preg_match('~^'.$uriPatterns.'$~', $uri)){
-                $segments = explode('/',$path);
 
+                //Получение внутреннего маршрута
+                $internalRoute = preg_replace('~^'.$uriPatterns.'$~' ,$path, $uri);
+
+                $segments = explode('/',$internalRoute);
+
+                //Получение имени контроллера и метода
                 $controllerName = array_shift($segments).'Controller';
                 $controllerName= ucfirst($controllerName);
 
                 $actionName ='action'.ucfirst(array_shift($segments));
-                echo '<br>'.$controllerName.'->'.$actionName;
+
+                //Получение параметров
+                $parameters = $segments;
+
+                echo '<pre>';
+                print_r($parameters);
+                echo '</pre>';
 
                 //Подключение файлов контроллера
 
@@ -63,7 +73,7 @@ class Router
                 //Создание экземпляр класса, и вызвать метод
 
                 $controllerObject = new $controllerName;
-                $result = $controllerObject -> $actionName();
+                $result = call_user_func_array(array($controllerObject,$actionName),$parameters);
                 if($result!=null){
                     break;
                 }
