@@ -9,7 +9,7 @@
 //Возвращает массив рутов
 
     return array(
-        'nedvizhimost/([a-z]+)/([a-z]+)/([0-9]+)'=>'realestate/view/$1/$2/$3',
+        'nedvizhimost/([a-z]+)/([a-z]+)/([0-9]+)'=>'realestate/view/$3/$1/$2',
         'nedvizhimost/([a-z]+)/([a-z]+)'=>'realestate/list/$1/$2',
         'nedvizhimost/([a-z]+)'=>'realestate/list/$1',
         'nedvizhimost'=>'realestate/index',
