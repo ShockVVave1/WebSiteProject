@@ -10,9 +10,9 @@
 
     return array(
         'nedvizhimost/([a-z]+)/([a-z]+)/([0-9]+)'=>'realestate/view/$3/$1/$2',
-        'nedvizhimost/([a-z]+)/([a-z]+)'=>'realestate/list/$1/$2',
-        'nedvizhimost/([a-z]+)'=>'realestate/list/$1',
-        'nedvizhimost'=>'realestate/index',
+        'nedvizhimost/([a-z]+)/([a-z]+)'=>'realestate/list/nedvizhimost/$1/$2',
+        'nedvizhimost/([a-z]+)'=>'realestate/list/nedvizhimost/$1',
+        'nedvizhimost'=>'realestate/list/nedvizhimost',
 
         'products'=>'products/list'
     );

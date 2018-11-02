@@ -21,7 +21,6 @@ Class Realestate{
         $db = DB::getConnection();
 
         if (isset($id)){
-            echo '$id = '.$id;
             $id = 'WHERE id = '.$id.' ';
         }
 
@@ -31,7 +30,7 @@ Class Realestate{
 
             //TODO Выбрать в каком ввиде возвращаить
             //$result->setFetchMode(PDO::FETCH_NUM);
-            //$result->setFetchMode(PDO::FETCH_ASSOC);
+            $result->setFetchMode(PDO::FETCH_ASSOC);
 
         $postItem = $result->fetch();
 
@@ -43,24 +42,30 @@ Class Realestate{
      * @param int $cat
      * @return array
      */
-    public static function getRealestateList($cat=null){
+    public static function getRealestateList($type, $transaction_type = null, $cat = null ){
 
         $db = DB::getConnection();
 
         $postList = array();
 
-        if (isset($cat)){
-            echo '$cat = '.$cat;
-            $cat = 'WHERE category = \''.$cat.'\' ';
+        if (isset($type)){
+            $where = 'WHERE type = \''.$type.'\' ';
         }
-
+        if (isset($transaction_type)){
+            $where.='AND transaction_type = \''.$transaction_type.'\' ';
+        }
+        if (isset($cat)){
+            $where.='AND category = \''.$cat.'\' ';
+        }
         //Включение поддержки utf8
         $db->exec('set names utf8');
-        $result = $db ->query('SELECT id, title, date, short_content '
+        $result = $db ->query('SELECT id, title, date, short_content, category, type, transaction_type '
             .'FROM db_wsite.ws_realestate '
-            .$cat
+            .$where
             .'ORDER BY date DESC '
             .'LIMIT 10');
+
+        $result->setFetchMode(PDO::FETCH_ASSOC);
 
         $i = 0;
 
@@ -69,6 +74,9 @@ Class Realestate{
             $postList[$i]['title'] = $row['title'];
             $postList[$i]['date'] = $row['date'];
             $postList[$i]['short_content'] = $row['short_content'];
+            $postList[$i]['category'] = $row['category'];
+            $postList[$i]['type'] = $row['type'];
+            $postList[$i]['transaction_type'] = $row['transaction_type'];
             $i++;
         }
         return $postList;

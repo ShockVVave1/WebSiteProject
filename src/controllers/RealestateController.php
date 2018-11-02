@@ -12,37 +12,34 @@ include_once ROOT.'/src/models/Realestate.php';
 class RealestateController{
 
     //Просмотр списка
-    function actionList($cat){
+    function actionList($type , $transaction_type=null, $cat = null ){
 
         $postList = array();
-        $postList = Realestate::getRealestateList($cat);
-        echo '<pre>';
-            print_r($postList);
-        echo '</pre>';
-        return true;
+        $postList = Realestate::getRealestateList($type , $transaction_type, $cat );
+        require_once(ROOT . '/src/views/category.php');
+
+       return true;
     }
 
     //Просмотр списка
     function actionIndex(){
 
         $postList = array();
-        $postList = Realestate::getRealestateList();
-        echo '<pre>';
-        print_r($postList);
-        echo '</pre>';
+        $postList   = Realestate::getRealestateList();
+
+        require_once(ROOT . '/src/views/category.php');
+
         return true;
     }
 
     //Просмотр единичного поста
     function actionView($id=0,$kind=null,$category=null){
-        if(isset($kind))echo '<br>'.$kind;
-        if(isset($category))echo '<br>'.$category;
         if(isset($id)){
-            $postItem = Realestate::getRealestateById($id);
-            echo '<pre>';
-            print_r($postItem);
-            echo '</pre>';
+            $postItem  = Realestate::getRealestateById($id);
         }
+
+        require_once(ROOT . '/src/views/post.php');
+
         return true;
     }
 }

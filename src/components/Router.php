@@ -58,9 +58,6 @@ class Router
                 //Получение параметров
                 $parameters = $segments;
 
-                echo '<pre>';
-                print_r($parameters);
-                echo '</pre>';
 
                 //Подключение файлов контроллера
 
