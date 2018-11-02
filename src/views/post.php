@@ -5,14 +5,9 @@
  * Date: 01.11.2018
  * Time: 22:10
  */
-
+include ROOT.'/src/views/layouts/header.php';
 ?>
 
-<html>
-<head>
-    <base href="/WebsiteProject/">
-</head>
-<body>
     <div>
        <?php  if((!isset($postItem['transaction_type'])) && (isset($postItem['type']))){ ?>
            <span><?php echo $postItem['type'];?></span>
@@ -43,5 +38,4 @@
         <p style="width:-moz-max-content; margin: 0 auto;"><a href="/WebsiteProject/<?php echo $postItem['type'];?>/<?php echo $postItem['transaction_type'];?>/<?php echo $postItem['category'];?>/<?php echo $postItem['id']?>">Read more</a></p>
     </div>
     <hr>
-</body>
-</html>
+<?php include ROOT.'/src/views/layouts/footer.php'; ?>

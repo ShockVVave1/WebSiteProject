@@ -62,7 +62,6 @@ class Router
                 //Подключение файлов контроллера
 
                 $controllerFile = ROOT.'/src/controllers/'.$controllerName.'.php';
-
                 if(file_exists($controllerFile)){
                     include_once ($controllerFile);
                 }

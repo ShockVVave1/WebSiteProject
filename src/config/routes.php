@@ -14,5 +14,8 @@
         'nedvizhimost/([a-z]+)'=>'realestate/list/nedvizhimost/$1',
         'nedvizhimost'=>'realestate/list/nedvizhimost',
 
-        'products'=>'products/list'
+        'products'=>'products/list',
+
+        //TODO заменить ebsiteProject на /
+        'ebsiteProject'=>'site/index'
     );

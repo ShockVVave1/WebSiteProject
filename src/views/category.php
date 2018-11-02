@@ -5,6 +5,8 @@
  * Date: 01.11.2018
  * Time: 19:46
  */
+
+include ROOT.'/src/views/layouts/header.php';
 ?>
 <html>
 <head>
@@ -45,5 +47,4 @@ foreach ($postList as $Item):?>
     </div>
 
 <?php endforeach;?>
-</body>
-</html>
+<?php include ROOT.'/src/views/layouts/footer.php'; ?>
