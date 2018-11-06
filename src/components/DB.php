@@ -28,7 +28,8 @@ class DB{
         }catch (PDOException $e){
             echo $e->getMessage();
         }
-
+        //Включение поддержки utf8
+        $db->exec('set names utf8');
         return $db;
     }
 

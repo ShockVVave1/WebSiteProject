@@ -10,6 +10,13 @@ include ROOT.'/src/views/layouts/header.php';
 ?>
 
 <h1>Main page</h1>
+<?php foreach ($types as $type){?>
+    <?php if($type['current']){?>
+        <span><?php echo $type['transaction_type']; ?></span>
+        <?php }else{?>
+    <a href="/WebsiteProject/<?php echo $type['transaction_type_url']; ?>"><?php echo $type['transaction_type']; ?></a>
+<?php }} ?>
+
 <!--<h2><?php echo $postItem['title']; ?></h2>
 <i><?php echo $postItem['date']; ?></i>
 <p><?php echo $postItem['short_content']; ?></p>

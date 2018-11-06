@@ -16,4 +16,7 @@
 <body>
 <header>
     <h1>Header</h1>
+    <?php foreach($categories as $category):?>
+        <p><a href="<?php echo $category['category_url_tag']; ?>"><?php echo $category['category']; ?></a></p>
+    <?php endforeach;?>
 </header>

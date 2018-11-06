@@ -9,12 +9,12 @@
 //Возвращает массив рутов
 
     return array(
-        'nedvizhimost/([a-z]+)/([a-z]+)/([0-9]+)'=>'realestate/view/$3/$1/$2',
-        'nedvizhimost/([a-z]+)/([a-z]+)'=>'realestate/list/nedvizhimost/$1/$2',
-        'nedvizhimost/([a-z]+)'=>'realestate/list/nedvizhimost/$1',
-        'nedvizhimost'=>'realestate/list/nedvizhimost',
+        '([a-z]+)/([a-z]+)/([0-9]+)'=>'realestate/view/$3/$1/$2',
+        '([a-z]+)/([a-z]+)'=>'realestate/list/$1/$2',
+        '([a-z]+)'=>'realestate/list/$1',
+        //TODO заменить ebsiteProject на /
+        //'ebsiteProject'=>'realestate/list',
 
-        'products'=>'products/list',
 
         //TODO заменить ebsiteProject на /
         'ebsiteProject'=>'site/index'

@@ -24,8 +24,6 @@ Class Realestate{
             $id = 'WHERE id = '.$id.' ';
         }
 
-        //Включение поддержки utf8
-        $db->exec('set names utf8');
         $result = $db ->query('SELECT * FROM db_wsite.ws_realestate '.$id);
 
             //TODO Выбрать в каком ввиде возвращаить
@@ -42,23 +40,24 @@ Class Realestate{
      * @param int $cat
      * @return array
      */
-    public static function getRealestateList($type, $transaction_type = null, $cat = null ){
+    public static function getRealestateList( $transaction_type = null, $cat = null ){
 
         $db = DB::getConnection();
 
         $postList = array();
 
-        if (isset($type)){
+        /*if (isset($type)){
             $where = 'WHERE type = \''.$type.'\' ';
-        }
+        }*/
+
         if (isset($transaction_type)){
-            $where.='AND transaction_type = \''.$transaction_type.'\' ';
+            $where ='WHERE transaction_type = \''.$transaction_type.'\' ';
         }
         if (isset($cat)){
             $where.='AND category = \''.$cat.'\' ';
         }
-        //Включение поддержки utf8
-        $db->exec('set names utf8');
+
+
         $result = $db ->query('SELECT id, title, date, short_content, category, type, transaction_type '
             .'FROM db_wsite.ws_realestate '
             .$where
@@ -75,20 +74,11 @@ Class Realestate{
             $postList[$i]['date'] = $row['date'];
             $postList[$i]['short_content'] = $row['short_content'];
             $postList[$i]['category'] = $row['category'];
-            $postList[$i]['type'] = $row['type'];
+            //$postList[$i]['type'] = $row['type'];
             $postList[$i]['transaction_type'] = $row['transaction_type'];
             $i++;
         }
         return $postList;
     }
-
-    /**
-     * Возвращает список категорий или список дочерних категорий
-     * @param int $cat
-     */
-    public static function  getRealestateCatList($cat=0){
-
-    }
-
 
 }
