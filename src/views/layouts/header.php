@@ -16,5 +16,5 @@
 <body>
 <header>
     <h1>Header</h1>
-    <?php echo $catmenu; ?>
+    <?php if(isset($catmenu))echo $catmenu; ?>
 </header>

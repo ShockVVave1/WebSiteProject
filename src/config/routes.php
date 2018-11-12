@@ -9,14 +9,39 @@
 //Возвращает массив рутов
 
     return array(
+
+        'buy/([a-z]+)/([0-9]+)'=>'realestate/view/$3/buy/$2',
+        'buy/([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/list/buy/$2',
+        'buy/([a-z]+)'=>'realestate/list/buy/$2',
+        'buy((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/listt/buy',
+        'buy'=>'realestate/listt/buy',
+
+        'rent/([a-z]+)/([0-9]+)'=>'realestate/view/$3/rent/$2',
+        'rent/([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/list/rent/$2',
+        'rent/([a-z]+)'=>'realestate/list/rent/$2',
+        'rent((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/listt/rent',
+        'rent'=>'realestate/listt/rent',
+
+        /**
         '([a-z]+)/([a-z]+)/([0-9]+)'=>'realestate/view/$3/$1/$2',
         '([a-z]+)/([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/list/$1/$2',
         '([a-z]+)/([a-z]+)'=>'realestate/list/$1/$2',
-        '([a-z]+)'=>'realestate/list/$1',
+        '([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/listt/$1',
+        '([a-z]+)'=>'realestate/listt/$1',
+        */
+
+
+
+
+        'user/register' => 'user/register',
+
+
         //TODO заменить ebsiteProject на /
         //'ebsiteProject'=>'realestate/list',
 
 
         //TODO заменить ebsiteProject на /
         'ebsiteProject'=>'site/index'
+
+
     );

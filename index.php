@@ -14,8 +14,7 @@ error_reporting(E_ALL);
 
 //2.Подключение файлов системы
 define('ROOT',dirname(__FILE__));
-require_once(ROOT.'/src/components/Router.php');
-require_once(ROOT.'/src/components/DB.php');
+require_once(ROOT.'/src/components/Autoload.php');
 
 
 $router = new Router();

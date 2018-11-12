@@ -41,7 +41,11 @@ class Category
         return $categories;
     }
 
-
+    /**
+     * @param null $cat_tag
+     * @return mixed
+     * Возвращает категорию по тегу
+     */
     public static function getCatByTag($cat_tag=null){
 
         $db = DB::getConnection();

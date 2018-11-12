@@ -1,3 +1,4 @@
+
 <?php
 /**
  * Created by PhpStorm.
@@ -6,15 +7,6 @@
  * Time: 1:23
  */
 
-//Подключение модели
-include_once ROOT.'/src/models/Realestate.php';
-include_once ROOT.'/src/models/Category.php';
-include_once ROOT.'/src/models/Type.php';
-
-//Подключение модулей;
-include_once ROOT.'/src/controllers/Breadcrumbs.php';
-include_once ROOT.'/src/controllers/Common.php';
-include_once ROOT.'/src/components/Pagination.php';
 
 
 class RealestateController{
@@ -23,8 +15,11 @@ class RealestateController{
     function actionList($transaction_type=null, $cat = null, $params= '' ){
         $postList = array();
         $categories = array();
+
         $paramsArray = (Common::getParamsToArray($params));
-        $current_page = intval($paramsArray['page']);
+
+
+        $current_page = isset($paramsArray['page']) ? intval($paramsArray['page']) : 1;
         if(isset($transaction_type)){
 
             if(isset($cat)){
@@ -36,16 +31,7 @@ class RealestateController{
                 $catmenu = include_once ROOT.'/src/views/modules/categories.php';
                 $pagination = new Pagination($total,$current_page,Realestate::SHOW_BY_DEFAULT,'?page=');
 
-            }else{
-                $categories = Category::getRealestateCatList($transaction_type);
-                $postList = Realestate::getRealestateList($paramsArray,  $transaction_type);
-                $breadcrumbs = Breadcrumbs::getBreadCrumbs($transaction_type);
-                $total=Realestate::getTotalPosts($transaction_type);
-                $types = Type::getTypes($transaction_type);
-                $catmenu = include_once ROOT.'/src/views/modules/categories.php';
-                $pagination = new Pagination($total,$current_page,Realestate::SHOW_BY_DEFAULT,'?page=');
             }
-
         }else{
             $postList = Realestate::getRealestateList( $paramsArray );
             $categories = Category::getRealestateCatList();
@@ -58,7 +44,37 @@ class RealestateController{
         // $types = Types::getTypes();
         require_once(ROOT . '/src/views/category.php');
 
-       return true;
+        return true;
+    }
+
+    //Просмотр списка
+    function actionListt($transaction_type=null, $params= '' ){
+        $postList = array();
+        $categories = array();
+        $paramsArray = (Common::getParamsToArray($params));
+        $current_page = isset($paramsArray['page']) ? intval($paramsArray['page']) : 1;
+        if(isset($transaction_type)){
+
+            $categories = Category::getRealestateCatList($transaction_type);
+            $postList = Realestate::getRealestateList($paramsArray,  $transaction_type);
+            $breadcrumbs = Breadcrumbs::getBreadCrumbs($transaction_type);
+            $total=Realestate::getTotalPosts($transaction_type);
+            $types = Type::getTypes($transaction_type);
+            $catmenu = include_once ROOT.'/src/views/modules/categories.php';
+            $pagination = new Pagination($total,$current_page,Realestate::SHOW_BY_DEFAULT,'?page=');
+        }else{
+            $postList = Realestate::getRealestateList( $paramsArray );
+            $categories = Category::getRealestateCatList();
+            $total=Realestate::getTotalPosts();
+            $breadcrumbs = Breadcrumbs::getBreadCrumbs();
+            $types = Type::getTypes();
+            $pagination = new Pagination($total,$current_page,Realestate::SHOW_BY_DEFAULT,'?page=');
+        }
+        //TODO Добавить контроллер типов
+        // $types = Types::getTypes();
+        require_once(ROOT . '/src/views/category.php');
+
+        return true;
     }
 
     //Просмотр списка
@@ -68,7 +84,7 @@ class RealestateController{
         $postList   = Realestate::getRealestateList();
         $categories = Category::getRealestateCatList();
         //TODO Добавить контроллер типов
-       // $types = Types::getTypes();
+        // $types = Types::getTypes();
         require_once(ROOT . '/src/views/category.php');
 
         return true;
@@ -77,8 +93,19 @@ class RealestateController{
     //Просмотр единичного поста
     function actionView($id=0,$transaction_type=null, $cat = null){
         if(isset($id)){
-            $postItem  = Realestate::getRealestateById($id);
-            $breadcrumbs = Breadcrumbs::getBreadCrumbs($transaction_type, $cat, $id);
+            if(isset($transaction_type)){
+                if(isset($cat)){
+                    $categories = Category::getRealestateCatList($transaction_type, $cat);
+                    $postItem  = Realestate::getRealestateById($id);
+                    $breadcrumbs = Breadcrumbs::getBreadCrumbs($transaction_type, $cat, $id);
+                    $catmenu = include_once ROOT.'/src/views/modules/categories.php';
+                }else{
+                    $categories = Category::getRealestateCatList($transaction_type);
+                    $postItem  = Realestate::getRealestateById($id);
+                    $breadcrumbs = Breadcrumbs::getBreadCrumbs($transaction_type, $cat, $id);
+                    $catmenu = include_once ROOT.'/src/views/modules/categories.php';
+                }
+            }
         }
         $categories = Category::getRealestateCatList();
         require_once(ROOT . '/src/views/post.php');

@@ -57,7 +57,6 @@ class Router
                 //Получение внутреннего маршрута
                 $internalRoute = preg_replace('~^'.$uriPatterns.'$~' ,$path, $uri);
 
-                echo $path;
                 $segments = explode('/',$internalRoute);
 
                 //Получение имени контроллера и метода
