@@ -6,9 +6,16 @@
  * Time: 23:24
  */
 
-include ROOT.'/src/views/layouts/header.php';
-?>
 
+?>
+    <html>
+    <head>
+        <base href="/WebsiteProject/">
+    </head>
+<body>
+<header>
+    <h1>Уникальная главная страница</h1>
+</header>
 <h1>Main page</h1>
 <?php foreach ($types as $type){?>
     <?php if($type['current']){?>

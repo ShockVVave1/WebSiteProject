@@ -23,7 +23,6 @@ if((!isset($cat)) && (isset($transaction_type))){
     $breadcrumbs.= "<span>$type_name</span>";
 
 }elseif(isset($transaction_type)){
-
     $type_name = Type::getTypeByTag($transaction_type)['transaction_type'];
     $breadcrumbs.= "<a href=\"/WebsiteProject/$transaction_type/\">$type_name</a></a><span>-></span>";
 

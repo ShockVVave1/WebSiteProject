@@ -10,6 +10,7 @@
 
     return array(
         '([a-z]+)/([a-z]+)/([0-9]+)'=>'realestate/view/$3/$1/$2',
+        '([a-z]+)/([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/list/$1/$2',
         '([a-z]+)/([a-z]+)'=>'realestate/list/$1/$2',
         '([a-z]+)'=>'realestate/list/$1',
         //TODO заменить ebsiteProject на /

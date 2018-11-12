@@ -44,9 +44,20 @@ class Router
             //Если найденно совпадение записываем имя контроллера и метода
             if (preg_match('~^'.$uriPatterns.'$~', $uri)){
 
+
+                $slash_counts = substr_count($uri,'/');
+
+                $get_param_num=substr_count($uri,'?');
+
+                //Если есть get параметры
+                if ($get_param_num>0){
+                    $path.='/';
+                        $path.='$'.($slash_counts+2);
+                }
                 //Получение внутреннего маршрута
                 $internalRoute = preg_replace('~^'.$uriPatterns.'$~' ,$path, $uri);
 
+                echo $path;
                 $segments = explode('/',$internalRoute);
 
                 //Получение имени контроллера и метода
@@ -60,14 +71,12 @@ class Router
 
 
                 //Подключение файлов контроллера
-
                 $controllerFile = ROOT.'/src/controllers/'.$controllerName.'.php';
                 if(file_exists($controllerFile)){
                     include_once ($controllerFile);
                 }
 
                 //Создание экземпляр класса, и вызвать метод
-
                 $controllerObject = new $controllerName;
                 $result = call_user_func_array(array($controllerObject,$actionName),$parameters);
                 if($result!=null){

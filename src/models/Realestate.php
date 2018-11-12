@@ -9,7 +9,7 @@
 
 Class Realestate{
 
-
+    const SHOW_BY_DEFAULT=3;
     /**
      * Возвращает 1 пост
      * @param int $id
@@ -40,15 +40,20 @@ Class Realestate{
      * @param int $cat
      * @return array
      */
-    public static function getRealestateList( $transaction_type = null, $cat = null ){
+    public static function getRealestateList($params='', $transaction_type = null, $cat = null ){
 
         $db = DB::getConnection();
 
         $postList = array();
 
-        /*if (isset($type)){
-            $where = 'WHERE type = \''.$type.'\' ';
-        }*/
+        $where='';
+        $offset='';
+
+        if (count($params)>0){
+            if (isset($params['page'])){
+                $offset = 'OFFSET '.(self::SHOW_BY_DEFAULT*(intval($params['page'])-1)).' ';
+            }
+        }
 
         if (isset($transaction_type)){
             $where ='WHERE transaction_type = \''.$transaction_type.'\' ';
@@ -62,7 +67,8 @@ Class Realestate{
             .'FROM db_wsite.ws_realestate '
             .$where
             .'ORDER BY date DESC '
-            .'LIMIT 10');
+            .'LIMIT 3 '
+            .$offset);
 
         $result->setFetchMode(PDO::FETCH_ASSOC);
 
@@ -79,6 +85,26 @@ Class Realestate{
             $i++;
         }
         return $postList;
+    }
+
+    public static function getTotalPosts($transaction_type=null,$cat=null){
+
+        $db = DB::getConnection();
+
+        $where='';
+        if (isset($transaction_type)){
+            $where ='WHERE transaction_type = \''.$transaction_type.'\' ';
+        }
+        if (isset($cat)){
+            $where.='AND category = \''.$cat.'\' ';
+        }
+
+        $result = $db->query('SELECT count(id) AS count FROM db_wsite.ws_realestate '
+            .$where);
+
+        $row = $result -> fetch();
+
+        return $row['count'];
     }
 
 }

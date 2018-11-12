@@ -13,35 +13,46 @@ include_once ROOT.'/src/models/Type.php';
 
 //Подключение модулей;
 include_once ROOT.'/src/controllers/Breadcrumbs.php';
+include_once ROOT.'/src/controllers/Common.php';
+include_once ROOT.'/src/components/Pagination.php';
+
 
 class RealestateController{
 
     //Просмотр списка
-    function actionList($transaction_type=null, $cat = null ){
-
+    function actionList($transaction_type=null, $cat = null, $params= '' ){
         $postList = array();
         $categories = array();
-
+        $paramsArray = (Common::getParamsToArray($params));
+        $current_page = intval($paramsArray['page']);
         if(isset($transaction_type)){
 
             if(isset($cat)){
                 $categories = Category::getRealestateCatList($transaction_type,$cat);
-                $postList = Realestate::getRealestateList( $transaction_type, $cat );
+                $postList = Realestate::getRealestateList($paramsArray, $transaction_type, $cat );
                 $breadcrumbs = Breadcrumbs::getBreadCrumbs($transaction_type,$cat);
+                $total=Realestate::getTotalPosts($transaction_type,$cat);
                 $types = Type::getTypes();
+                $catmenu = include_once ROOT.'/src/views/modules/categories.php';
+                $pagination = new Pagination($total,$current_page,Realestate::SHOW_BY_DEFAULT,'?page=');
 
             }else{
                 $categories = Category::getRealestateCatList($transaction_type);
-                $postList = Realestate::getRealestateList( $transaction_type);
+                $postList = Realestate::getRealestateList($paramsArray,  $transaction_type);
                 $breadcrumbs = Breadcrumbs::getBreadCrumbs($transaction_type);
+                $total=Realestate::getTotalPosts($transaction_type);
                 $types = Type::getTypes($transaction_type);
+                $catmenu = include_once ROOT.'/src/views/modules/categories.php';
+                $pagination = new Pagination($total,$current_page,Realestate::SHOW_BY_DEFAULT,'?page=');
             }
 
         }else{
-            $postList = Realestate::getRealestateList( );
+            $postList = Realestate::getRealestateList( $paramsArray );
             $categories = Category::getRealestateCatList();
+            $total=Realestate::getTotalPosts();
             $breadcrumbs = Breadcrumbs::getBreadCrumbs();
             $types = Type::getTypes();
+            $pagination = new Pagination($total,$current_page,Realestate::SHOW_BY_DEFAULT,'?page=');
         }
         //TODO Добавить контроллер типов
         // $types = Types::getTypes();

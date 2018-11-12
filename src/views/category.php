@@ -33,4 +33,5 @@ foreach ($postList as $Item):?>
     </div>
 
 <?php endforeach;?>
+<?php echo $pagination->get(); ?>
 <?php include ROOT.'/src/views/layouts/footer.php'; ?>
