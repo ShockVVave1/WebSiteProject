@@ -34,7 +34,11 @@
 
 
         'user/register' => 'user/register',
-
+        'user/login' => 'user/login',
+        'user/logout' => 'user/logout',
+        'user/edit' => 'user/edit',
+        'cabinet/edit' => 'cabinet/edit',
+        'cabinet' => 'cabinet/index',
 
         //TODO заменить ebsiteProject на /
         //'ebsiteProject'=>'realestate/list',

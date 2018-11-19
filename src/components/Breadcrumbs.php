@@ -13,6 +13,7 @@ class Breadcrumbs{
      * @param null $cat
      * @param null $id
      * @return mixed
+     * Генерирует хлебные крошки
      */
     public static  function  getBreadCrumbs($transaction_type=null, $cat = null , $id=null){
 

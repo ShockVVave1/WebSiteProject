@@ -11,7 +11,10 @@ class Router
 {
     private $routes;
 
-    //Читает руты
+    /**
+     * Router constructor.
+     * Подключает файл с массивом рутов
+     */
     public function __construct(){
         $routesPath=ROOT.'/src/config/routes.php';
         $this->routes=include($routesPath);
@@ -28,7 +31,9 @@ class Router
         };
     }
 
-
+    /**
+     * Обрабатывает запрос
+     */
     public function run(){
         //Получаем строку запроса
         $uri = $this->getURI();
@@ -44,9 +49,10 @@ class Router
             //Если найденно совпадение записываем имя контроллера и метода
             if (preg_match('~^'.$uriPatterns.'$~', $uri)){
 
-
+                //Считает кол-во / в запросе
                 $slash_counts = substr_count($uri,'/');
 
+                //Считает количество параметров в запросе
                 $get_param_num=substr_count($uri,'?');
 
                 //Если есть get параметры
@@ -57,12 +63,14 @@ class Router
                 //Получение внутреннего маршрута
                 $internalRoute = preg_replace('~^'.$uriPatterns.'$~' ,$path, $uri);
 
+                //Получает сегменты внутреннего маршрута разделенные /
                 $segments = explode('/',$internalRoute);
 
                 //Получение имени контроллера и метода
                 $controllerName = array_shift($segments).'Controller';
                 $controllerName= ucfirst($controllerName);
 
+                //Получение имени функции
                 $actionName ='action'.ucfirst(array_shift($segments));
 
                 //Получение параметров
