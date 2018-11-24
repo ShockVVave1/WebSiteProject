@@ -9,8 +9,7 @@
 include ROOT.'/src/views/layouts/header.php';
 
 ?>
-
-    <h2>Редактирование персональных данных</h2>
+    <h2>Редактирование персональных данных </h2>
 
 <?php if(isset($result)){?>
     <p>Отредактировано!</p>
@@ -23,7 +22,7 @@ include ROOT.'/src/views/layouts/header.php';
     </ul>
 <?php } ?>
     <form action="cabinet/edit" method="post">
-        <input type="text" name="name" placeholder="name" value="<?php echo $user['nickname'];?>">
+        <input type="text" name="name" placeholder="name" value="<?php echo $name; ?>">
         <input type="password" name="password" placeholder="password" value="">
         <input type="submit" name="submit" value="true" class="btn btn-default" placeholder="">Сохранить</input>
     </form>

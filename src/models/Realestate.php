@@ -19,9 +19,8 @@ Class Realestate{
     {
 
         $db = DB::getConnection();
-
         if (isset($id)){
-            $id = 'WHERE id = '.$id.' ';
+            $id = ' WHERE id = '.$id.' ';
         }
 
         $result = $db ->query('SELECT * FROM db_wsite.ws_realestate '.$id);
@@ -54,9 +53,8 @@ Class Realestate{
                 $offset = 'OFFSET '.(self::SHOW_BY_DEFAULT*(intval($params['page'])-1)).' ';
             }
         }
-
         if (isset($transaction_type)){
-            $where ='WHERE transaction_type = \''.$transaction_type.'\' ';
+            $where ='WHERE transaction_type = \''.$transaction_type.'\' AND status = 1 ';
         }
         if (isset($cat)){
             $where.='AND category = \''.$cat.'\' ';
@@ -87,6 +85,12 @@ Class Realestate{
         return $postList;
     }
 
+    /**
+     * @param null $transaction_type
+     * @param null $cat
+     * @return mixed
+     * Возвращает общее количество записей в сучетом категории и типа
+     */
     public static function getTotalPosts($transaction_type=null,$cat=null){
 
         $db = DB::getConnection();

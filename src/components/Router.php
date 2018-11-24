@@ -50,7 +50,7 @@ class Router
             if (preg_match('~^'.$uriPatterns.'$~', $uri)){
 
                 //Считает кол-во / в запросе
-                $slash_counts = substr_count($uri,'/');
+                $mask_count = substr_count($path,'$');
 
                 //Считает количество параметров в запросе
                 $get_param_num=substr_count($uri,'?');
@@ -58,8 +58,9 @@ class Router
                 //Если есть get параметры
                 if ($get_param_num>0){
                     $path.='/';
-                        $path.='$'.($slash_counts+2);
+                        $path.='$'.($mask_count+1);
                 }
+
                 //Получение внутреннего маршрута
                 $internalRoute = preg_replace('~^'.$uriPatterns.'$~' ,$path, $uri);
 

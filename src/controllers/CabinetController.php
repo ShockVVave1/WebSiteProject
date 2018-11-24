@@ -6,8 +6,16 @@
  * Time: 13:13
  */
 
+/**
+ * Class CabinetController
+ * Класс обеспечивающий функции кабинета пользователя
+ */
 class CabinetController{
 
+    /**
+     * @return bool
+     * Функция отображения личного кабинета
+     */
     public function actionIndex(){
 
         $userId = User::checkLogged();
@@ -17,6 +25,9 @@ class CabinetController{
         return true;
     }
 
+    /**
+     * Функция редактировалия профиля пользователя
+     */
     public  function actionEdit(){
         $userId = User::checkLogged();
         $user = User::getUserById($userId);
@@ -38,16 +49,22 @@ class CabinetController{
                 $errors[]='Имя не должно быть короче 2-х символов';
             }
 
-
-            if(User::checkPassword($password)){
-                echo "<br> $password ok";
-            }else{
-                $errors[]='Пароль не должен быть короче 6-ти символов';
+            if($password !== '') {
+                if (User::checkPassword($password)) {
+                    echo "<br> $password ok";
+                } else {
+                    $errors[] = 'Пароль не должен быть короче 6-ти символов';
+                }
             }
 
             if ($errors==false){
+                if($password !== ''){
+                    echo 'pass='.$password;
+                    $hash_password = password_hash($password,PASSWORD_DEFAULT);
+                }else{
+                    $hash_password = '';
+                }
 
-                $hash_password = password_hash($password,PASSWORD_DEFAULT);
                 $result = User::edit($userId,$name, $hash_password);
             }
 

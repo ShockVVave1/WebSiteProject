@@ -41,7 +41,11 @@ class Type{
         return $types;
     }
 
-
+    /**
+     * @param $type_tag
+     * @return mixed
+     * Возвращает тип сделки по тегу
+     */
     public static function getTypeByTag($type_tag){
         $db = DB::getConnection();
 

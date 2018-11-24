@@ -17,9 +17,8 @@ class RealestateController{
         $categories = array();
 
         $paramsArray = (Common::getParamsToArray($params));
-
-
         $current_page = isset($paramsArray['page']) ? intval($paramsArray['page']) : 1;
+
         if(isset($transaction_type)){
 
             if(isset($cat)){
@@ -31,6 +30,14 @@ class RealestateController{
                 $catmenu = include_once ROOT.'/src/views/modules/categories.php';
                 $pagination = new Pagination($total,$current_page,Realestate::SHOW_BY_DEFAULT,'?page=');
 
+            }else{
+                $categories = Category::getRealestateCatList($transaction_type);
+                $postList = Realestate::getRealestateList($paramsArray,  $transaction_type);
+                $breadcrumbs = Breadcrumbs::getBreadCrumbs($transaction_type);
+                $total=Realestate::getTotalPosts($transaction_type);
+                $types = Type::getTypes($transaction_type);
+                $catmenu = include_once ROOT.'/src/views/modules/categories.php';
+                $pagination = new Pagination($total,$current_page,Realestate::SHOW_BY_DEFAULT,'?page=');
             }
         }else{
             $postList = Realestate::getRealestateList( $paramsArray );

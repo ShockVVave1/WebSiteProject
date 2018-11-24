@@ -10,36 +10,28 @@
 
     return array(
 
-        'buy/([a-z]+)/([0-9]+)'=>'realestate/view/$3/buy/$2',
-        'buy/([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/list/buy/$2',
-        'buy/([a-z]+)'=>'realestate/list/buy/$2',
+
+        'buy/([a-z]+)/([0-9]+)'=>'realestate/view/$2/buy/$1',
+        'buy/([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/list/buy/$1',
+        'buy/([a-z]+)'=>'realestate/list/buy/$1',
         'buy((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/listt/buy',
         'buy'=>'realestate/listt/buy',
 
-        'rent/([a-z]+)/([0-9]+)'=>'realestate/view/$3/rent/$2',
-        'rent/([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/list/rent/$2',
-        'rent/([a-z]+)'=>'realestate/list/rent/$2',
+        'rent/([a-z]+)/([0-9]+)'=>'realestate/view/$2/rent/$1',
+        'rent/([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/list/rent/$1',
+        'rent/([a-z]+)'=>'realestate/list/rent/$1',
         'rent((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/listt/rent',
         'rent'=>'realestate/listt/rent',
 
-        /**
-        '([a-z]+)/([a-z]+)/([0-9]+)'=>'realestate/view/$3/$1/$2',
-        '([a-z]+)/([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/list/$1/$2',
-        '([a-z]+)/([a-z]+)'=>'realestate/list/$1/$2',
-        '([a-z]+)((?:[?][a-z]+[=][a-z A-Z 0-9]+)+)'=>'realestate/listt/$1',
-        '([a-z]+)'=>'realestate/listt/$1',
-        */
 
-
-
-
+        'ajax/contact' => 'ajax/contact',
         'user/register' => 'user/register',
         'user/login' => 'user/login',
         'user/logout' => 'user/logout',
         'user/edit' => 'user/edit',
         'cabinet/edit' => 'cabinet/edit',
         'cabinet' => 'cabinet/index',
-
+        'contacts'=>'site/contact',
         //TODO заменить ebsiteProject на /
         //'ebsiteProject'=>'realestate/list',
 

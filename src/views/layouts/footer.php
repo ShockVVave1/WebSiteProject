@@ -9,6 +9,7 @@
 
 <footer>
     <h1>Footer</h1>
+    <a href="contacts">Контакты</a>
 </footer>
 </body>
 </html>
